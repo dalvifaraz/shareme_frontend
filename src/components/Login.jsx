@@ -33,6 +33,7 @@ const Login = () => {
       username: 'admin',
       image: '',
     };
+    localStorage.setItem('user', JSON.stringify(doc));
 
     client.createIfNotExists(doc).then(() => {
       navigate('/', { replace: true });
