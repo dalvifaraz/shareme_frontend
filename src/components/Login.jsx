@@ -31,7 +31,8 @@ const Login = () => {
       _id: '1234',
       _type: 'user',
       username: 'admin',
-      image: '',
+      image:
+        'https://drive.google.com/file/d/1kvvtmhgRvDhuD0JNRBUxX8xOrEFp0eEM/view?usp=share_link',
     };
     localStorage.setItem('user', JSON.stringify(doc));
 
@@ -57,7 +58,7 @@ const Login = () => {
             <img src={logo} width="130px" alt="logo" />
             <div className="shadow-2xl" onClick={() => handleSignIn()}>
               <button onClick={handleSignIn}>SIGN IN</button>
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId=""
                 render={(renderProps) => (
                   <button
@@ -72,7 +73,7 @@ const Login = () => {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy="single_host-origin"
-              />
+              /> */}
             </div>
           </div>
         </div>
