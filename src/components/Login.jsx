@@ -14,7 +14,7 @@ const Login = () => {
     const doc = {
       _id: googleId,
       _type: 'user',
-      userName: name,
+      username: name,
       image: imageUrl,
     };
 
@@ -24,7 +24,6 @@ const Login = () => {
   };
 
   const handleSignIn = () => {
-    console.log('hello world');
     // localStorage.setItem('user', JSON.stringify(response.profileObj));
     // const { name, googleId, imageUrl } = response.profileObj;
     const doc = {

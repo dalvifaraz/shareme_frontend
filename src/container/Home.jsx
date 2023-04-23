@@ -10,14 +10,12 @@ import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { userQuery } from '../utils/data';
 import UserProfile from '../components/UserProfile';
+import { fetchUser } from '../utils/fetchUser';
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const scrollRef = useRef(null);
-  const userInfo =
-    localStorage.getItem('user') !== 'undefined'
-      ? JSON.parse(localStorage.getItem('user'))
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?._id);
@@ -30,8 +28,6 @@ const Home = () => {
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);
   }, []);
-
-  console.log(user);
 
   return (
     <div className="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
