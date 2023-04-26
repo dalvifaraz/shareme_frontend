@@ -6,18 +6,25 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 import { urlFor, client } from '../client';
 import { fetchUser } from '../utils/fetchUser';
-import defaultUser from '../assets/default_user.png';
 
-const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
+const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
-  const user = fetchUser();
+  const [savingPost, setSavingPost] = useState(false);
 
-  const alreadySaved = !!save?.filter(
-    (item) => item.postedBy?._id === user?._id
-  ).length;
+  const { postedBy, image, _id, destination } = pin;
+
+  const user = fetchUser();
+  const navigate = useNavigate();
+
+  let alreadySaved = pin?.save?.filter(
+    (item) => item?.postedBy?._id === user?._id
+  );
+
+  alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
   const savePin = (id) => {
-    if (!alreadySaved) {
+    if (alreadySaved?.length === 0) {
+      setSavingPost(true);
       client
         .patch(id)
         .setIfMissing({ save: [] })
@@ -34,6 +41,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
         .commit()
         .then(() => {
           window.location.reload();
+          setSavingPost(false);
         });
     }
   };
@@ -44,7 +52,6 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
     });
   };
 
-  const navigate = useNavigate();
   return (
     <div className="m-2">
       <div
@@ -80,7 +87,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   type="button"
                   className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py -1 text-base rounded-3xl hover:shadow-md outlined-none"
                 >
-                  {save?.length} Saved
+                  {pin?.save?.length} Saved
                 </button>
               ) : (
                 <button
@@ -91,7 +98,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   }}
                   className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py -1 text-base rounded-3xl hover:shadow-md outlined-none"
                 >
-                  Save
+                  {pin?.save?.length} {savingPost ? 'Saving' : 'Save'}
                 </button>
               )}
             </div>

@@ -11,16 +11,19 @@ const Feed = () => {
 
   const { categoryId } = useParams();
 
-  useEffect(() => {
-    setLoading(true);
-    if (categoryId) {
-      const query = searchQuery(categoryId);
+  console.log(pins);
 
+  useEffect(() => {
+    if (categoryId) {
+      setLoading(true);
+      const query = searchQuery(categoryId);
       client.fetch(query).then((data) => {
         setPins(data);
         setLoading(false);
       });
     } else {
+      setLoading(true);
+      console.log('HELLO WAAPAS');
       client.fetch(feedQuery).then((data) => {
         setPins(data);
         setLoading(false);
@@ -28,8 +31,12 @@ const Feed = () => {
     }
   }, [categoryId]);
 
-  if (loading)
-    return <Spinner message="We are adding new ideas to your feed" />;
+  const ideaName = categoryId || 'new';
+  if (loading) {
+    return (
+      <Spinner message={`We are adding ${ideaName} ideas to your feed!`} />
+    );
+  }
   return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };
 
