@@ -11,7 +11,7 @@ const Feed = () => {
 
   const { categoryId } = useParams();
 
-  console.log(pins);
+  // console.log(pins);
 
   useEffect(() => {
     if (categoryId) {
@@ -23,7 +23,7 @@ const Feed = () => {
       });
     } else {
       setLoading(true);
-      console.log('HELLO WAAPAS');
+      // console.log('HELLO WAAPAS');
       client.fetch(feedQuery).then((data) => {
         setPins(data);
         setLoading(false);

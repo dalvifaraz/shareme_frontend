@@ -1,9 +1,7 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo_2.png';
 import { client } from '../client';
 
 const Login = () => {
@@ -56,7 +54,15 @@ const Login = () => {
           <div className="p-5">
             <img src={logo} width="130px" alt="logo" />
             <div className="shadow-2xl" onClick={() => handleSignIn()}>
-              <button onClick={handleSignIn}>SIGN IN</button>
+              {/* <button onClick={handleSignIn}>SIGN IN</button> */}
+              <button
+                type="button"
+                className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none mt-2"
+                onClick={handleSignIn}
+                // disabled={renderProps.disabled}
+              >
+                Sign in with Admin
+              </button>
               {/* <GoogleLogin
                 clientId=""
                 render={(renderProps) => (

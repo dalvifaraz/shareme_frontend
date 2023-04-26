@@ -49,7 +49,7 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-    console.log('save');
+    // console.log('save');
     if (title && about && destination && imageAsset?._id && category) {
       const doc = {
         _type: 'pin',

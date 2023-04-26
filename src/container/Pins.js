@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import CreatePin from '../components/CreatePin';
 import Feed from '../components/Feed';
 import PinDetail from '../components/PinDetail';
 import Search from '../components/Search';
 import { Routes, Route } from 'react-router-dom';
+import { userQuery } from '../utils/data';
+import { fetchUser } from '../utils/fetchUser';
+import { client } from '../client';
 
-const Pins = ({ user }) => {
+const Pins = ({ userProp }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const userInfo = fetchUser();
+    if (!user) {
+      const query = userQuery(userInfo?._id);
+
+      client.fetch(query).then((data) => {
+        setUser(data[0]);
+      });
+    }
+  }, [userProp]);
 
   return (
     <div className="px-2 md:px-5">
