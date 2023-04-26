@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './container/Home';
 
@@ -13,15 +13,13 @@ const App = () => {
         : localStorage.clear();
 
     if (!User) navigate('/login');
-  }, []);
+  }, [navigate]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="/*" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="/*" element={<Home />} />
+    </Routes>
   );
 };
 
